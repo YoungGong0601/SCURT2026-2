@@ -13,6 +13,7 @@
     - [Art/](Assets/Art/): 게임용 스프라이트 (Art/의 SVG를 변환한 PNG)
       - [Player/](Assets/Art/Player/): 플레이어 스프라이트 PNG (Art/Player의 SVG에서 변환한 게임용 파일)
       - [Tiles/](Assets/Art/Tiles/): 타일 스프라이트 PNG와 Tile 에셋 (Art/Tiles의 SVG에서 변환)
+    - [Data/](Assets/Data/): 데이터 에셋: 맵 설정(MapSettings), 타일 팔레트(TilePalette)
     - [Scenes/](Assets/Scenes/): Unity 씬 파일
     - [Scripts/](Assets/Scripts/): C# 스크립트 (게임 동작 코드, 기능별 하위 폴더)
       - [Map/](Assets/Scripts/Map/): 무한 맵 코드 (타일 생성 전략, 청크 스트리밍, 측정)
@@ -21,6 +22,7 @@
       - [Scenes/](Assets/Settings/Scenes/): URP 2D 템플릿이 제공한 새 씬용 템플릿 (URP2DSceneTemplate)
   - [captures/](captures/): 작업 보고용 캡처 (모든 작업 보고에 포함)
   - [docs/](docs/): 문서 공간: 개요, 결정 기록, 설계, 규칙, 조사 (목차: docs/README.md)
+    - [experiments/](docs/experiments/): 실험, 측정 기록 (실험 결과의 단일 출처)
     - [research/](docs/research/): 자료 조사 결과: 검색 서브에이전트가 작성, 출처(URL) 포함
   - [Packages/](Packages/): Unity 패키지 목록 (manifest.json, 손으로 고치지 않음)
   - [ProjectSettings/](ProjectSettings/): Unity 프로젝트 설정 (에디터 버전, 입력 방식 등의 단일 출처)
