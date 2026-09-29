@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" shape-rendering="crispEdges">
+  <!-- 외곽선: 두 사각형을 겹쳐 모서리 1칸을 비움 (둥근 네모) -->
+  <rect x="2" y="1" width="12" height="14" fill="#1E1E1E"/>
+  <rect x="1" y="2" width="14" height="12" fill="#1E1E1E"/>
+  <!-- 몸통 -->
+  <rect x="2" y="2" width="12" height="12" fill="#FFFFFF"/>
+  <!-- 아래쪽 옅은 그림자 (입체감) -->
+  <rect x="2" y="13" width="12" height="1" fill="#D6D6D6"/>
+  <!-- 눈: 왼쪽 -->
+  <rect x="3" y="6" width="2" height="3" fill="#000000"/>
+  <rect x="7" y="6" width="2" height="3" fill="#000000"/>
+</svg>
