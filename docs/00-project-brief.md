@@ -4,7 +4,7 @@
 > **이 프로젝트가 무엇인가**(정체성, 목표, 범위)의 단일 출처다.
 
 ## 정체성
-- **고려대학교 S-CURT 연구.** (프로그램 세부 확인은 [결정 기록](01-decision-log.md)의 미결 사항)
+- **고려대학교 세종캠퍼스 S-CURT(Short-term CURT, 단기형) 연구.** 프로그램 정보는 [조사 문서의 S-CURT 메모](research/01-infinite-map-techniques.md#s-curt-메모).
 - Infinity Map(무한 맵)을 가진 **2D 탑뷰 게임 초안**. 게임은 주제이고, 목적은 연구다.
 
 ## 목표
