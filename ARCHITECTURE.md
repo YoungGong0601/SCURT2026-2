@@ -29,10 +29,10 @@
 
 | 구성 요소 | 책임 | 원칙, 패턴 | 상태 |
 |---|---|---|---|
-| `IMoveInput` | 이동 방향을 알려 주는 약속(인터페이스) | Strategy, 의존 역전 | 🔨 리팩터링 중 |
-| `KeyboardMoveInput` | WASD 읽기. 키를 아는 유일한 곳 | Strategy 구현 | 🔨 리팩터링 중 |
-| `PlayerMovement` | 이동. 속도와 바라보는 방향의 단일 출처 | 단일 책임, Observer(발행) | 🔨 리팩터링 중 |
-| `PlayerFacingSprite` | 방향 → 스프라이트. 방향별 스프라이트의 단일 출처 | 단일 책임, Observer(구독) | 🔨 리팩터링 중 |
+| `IMoveInput` | 이동 방향을 알려 주는 약속(인터페이스) | Strategy, 의존 역전 | ✅ 완료 |
+| `KeyboardMoveInput` | WASD 읽기. 키를 아는 유일한 곳 | Strategy 구현 | ✅ 완료 |
+| `PlayerMovement` | 이동. 속도와 바라보는 방향의 단일 출처 | 단일 책임, Observer(발행) | ✅ 완료 |
+| `PlayerFacingSprite` | 방향 → 스프라이트. 방향별 스프라이트의 단일 출처 | 단일 책임, Observer(구독) | ✅ 완료 |
 | 플레이어 아트 | 16×16 "흰 네모" ([설계](docs/02-player-design.md), [원본과 변환](Art/README.md)) | | ✅ 완료 |
 | Main Camera | Player의 자식으로 따라다님 | | ✅ 완료 |
 | `WorldGen` | `(seed, x, y)` → 타일 종류 | 순수 함수 | 📋 계획 |
@@ -61,7 +61,6 @@
 - 개발 환경, 역할 분담, 도구: [Environment Setting Rules](.claude/environment/Environment-Setting-Rules.md)
 
 ## 5. 앞으로 (계획)
-1. 플레이어 SOLID 리팩터링 완료
-2. `WorldGen` + `ChunkManager`로 무한 맵 1차 구현
-3. 측정: 청크 생성 ms, 프레임 시간, 활성 청크 수, 결정론 검증
-4. 비교 실험 (조사 문서의 "측정, 실험 아이디어")
+1. `WorldGen` + `ChunkManager`로 무한 맵 1차 구현
+2. 측정: 청크 생성 ms, 프레임 시간, 활성 청크 수, 결정론 검증
+3. 비교 실험 (조사 문서의 "측정, 실험 아이디어")
