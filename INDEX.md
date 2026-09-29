@@ -8,16 +8,20 @@
     - [environment/](.claude/environment/): 환경 규칙(Environment Setting Rules): 작업 환경 구성 지시문 모음, 추후 스킬로 분리 예정
   - [Art/](Art/): 원본 아트(SVG): Unity 밖에 두는 원본 그림, 변환 방법은 Art/README.md
     - [Player/](Art/Player/): 플레이어 원본 SVG와 미리보기 PNG
+    - [Tiles/](Art/Tiles/): 타일 원본 SVG 4종(물, 모래, 풀, 숲)과 미리보기 PNG
   - [Assets/](Assets/): Unity 에셋 루트: 씬, 스크립트, 스프라이트, URP 설정
     - [Art/](Assets/Art/): 게임용 스프라이트 (Art/의 SVG를 변환한 PNG)
       - [Player/](Assets/Art/Player/): 플레이어 스프라이트 PNG (Art/Player의 SVG에서 변환한 게임용 파일)
+      - [Tiles/](Assets/Art/Tiles/): 타일 스프라이트 PNG와 Tile 에셋 (Art/Tiles의 SVG에서 변환)
     - [Scenes/](Assets/Scenes/): Unity 씬 파일
     - [Scripts/](Assets/Scripts/): C# 스크립트 (게임 동작 코드, 기능별 하위 폴더)
+      - [Map/](Assets/Scripts/Map/): 무한 맵 코드 (타일 생성 전략, 청크 스트리밍, 측정)
       - [Player/](Assets/Scripts/Player/): 플레이어 구성 요소 (입력 전략, 이동, 방향 스프라이트)
     - [Settings/](Assets/Settings/): URP 2D 렌더 설정 (Universal 2D 템플릿 기본값)
       - [Scenes/](Assets/Settings/Scenes/): URP 2D 템플릿이 제공한 새 씬용 템플릿 (URP2DSceneTemplate)
+  - [captures/](captures/): 작업 보고용 캡처 (모든 작업 보고에 포함)
   - [docs/](docs/): 문서 공간: 개요, 결정 기록, 설계, 규칙, 조사 (목차: docs/README.md)
     - [research/](docs/research/): 자료 조사 결과: 검색 서브에이전트가 작성, 출처(URL) 포함
   - [Packages/](Packages/): Unity 패키지 목록 (manifest.json, 손으로 고치지 않음)
   - [ProjectSettings/](ProjectSettings/): Unity 프로젝트 설정 (에디터 버전, 입력 방식 등의 단일 출처)
-  - [sub-tools/](sub-tools/): 자동화 도구 모음: 인덱스 재구성(update_index.py), SVG→PNG 변환(svg2png.py)
+  - [sub-tools/](sub-tools/): 자동화 도구 모음: 색인 재구성(update_index.py), SVG→PNG 변환(svg2png.py), 캡처(capture.py)

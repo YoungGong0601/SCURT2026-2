@@ -9,21 +9,24 @@
 ```
  KeyboardMoveInput ──(IMoveInput: 방향)──▶ PlayerMovement ──(FacingChanged 이벤트)──▶ PlayerFacingSprite
    (WASD 읽기)                              (이동, 바라보는 방향)                        (방향별 스프라이트)
-                                                  │ 위치
+                                                  │ 위치 (target)
                                                   ▼
-                                            ChunkManager ──(seed, x, y)──▶ WorldGen
-                                          (청크 만들기/지우기) ◀──(타일 종류)──  (좌표 → 타일 종류)
-                                                  │ SetTilesBlock
-                                                  ▼
-                                            Grid / Tilemap (1개)
+  MapSettings ──(모든 맵 설정값)──▶ ChunkManager ──(x, y)──▶ ITileGenerator ◀── PerlinTileGenerator
+  TilePalette ──(TileType → 타일)─▶ (청크 만들기/지우기) ◀─(TileType)──       (seed + Perlin 노이즈)
+                                      │        │ 측정
+                                      │        ▼
+                                      │    ChunkStats ──▶ MapStatsOverlay (화면 표시)
+                                      │ SetTilesBlock
+                                      ▼
+                                Grid / Tilemap (1개)
 
  Main Camera: Player 오브젝트의 자식 (따라다님, 코드 없음)
 ```
 
 - **입력**은 `IMoveInput` 인터페이스 뒤에 숨는다. 키보드 대신 자동 입력(실험용)으로 바꿔 끼울 수 있다.
 - **PlayerMovement**가 위치와 바라보는 방향의 유일한 주인이다. 방향이 바뀌면 이벤트로 알린다.
-- **ChunkManager**는 플레이어 주변에 있어야 할 청크를 계산해, 없는 청크는 **WorldGen**에게 타일 종류를 물어 채우고 멀어진 청크는 지운다.
-- **WorldGen**은 상태가 없는 순수 함수다. 같은 좌표는 언제나 같은 타일이 된다. 그래서 저장하지 않아도 무한하고 일관된 맵이 된다.
+- **ChunkManager**는 플레이어 주변에 있어야 할 청크를 계산해, 없는 청크는 **생성기**에게 타일 종류를 물어 채우고 멀어진 청크는 지운다.
+- **생성기**(`ITileGenerator`)는 결과가 `(seed, x, y)`로만 정해지는 순수 함수다. 같은 좌표는 언제나 같은 타일이 된다. 그래서 저장하지 않아도 무한하고 일관된 맵이 된다. 다른 알고리즘은 새 구현체를 **추가**해서 비교 실험한다.
 
 ## 2. 구성 요소
 
@@ -35,9 +38,17 @@
 | `PlayerFacingSprite` | 방향 → 스프라이트. 방향별 스프라이트의 단일 출처 | 단일 책임, Observer(구독) | ✅ 완료 |
 | 플레이어 아트 | 16×16 "흰 네모" ([설계](docs/02-player-design.md), [원본과 변환](Art/README.md)) | | ✅ 완료 |
 | Main Camera | Player의 자식으로 따라다님 | | ✅ 완료 |
-| `WorldGen` | `(seed, x, y)` → 타일 종류 | 순수 함수 | 📋 계획 |
-| `ChunkManager` | 청크 로드/언로드, 프레임당 1청크, 측정(생성 ms, 활성 청크 수) | 단일 책임 | 📋 계획 |
-| Grid / Tilemap | 맵 표시. Tilemap 1개에 청크 단위로 채움 | | 📋 계획 |
+| `TileType` | 타일 종류: Water, Sand, Grass, Forest | | 🔨 진행 중 |
+| `ITileGenerator` | 좌표 → 타일 종류의 약속 | Strategy, 개방 폐쇄 | 🔨 진행 중 |
+| `PerlinTileGenerator` | seed 오프셋 + Perlin 노이즈 + 임계값. 결과는 `(seed, x, y)`로만 정해짐 | Strategy 구현, 순수 함수 | 🔨 진행 중 |
+| `MapSettings` (에셋) | 시드, 청크 크기, 반경, 프레임당 청크 수, 노이즈 배율, 임계값. **모든 맵 설정값의 단일 출처** | 진실 단일성 | 🔨 진행 중 |
+| `TilePalette` (에셋) | TileType → 타일 에셋. 어떤 그림을 쓰는지의 단일 출처 | 진실 단일성 | 🔨 진행 중 |
+| `ChunkCoords` | 타일 좌표 ↔ 청크 좌표 계산의 유일한 곳 | 진실 단일성 | 🔨 진행 중 |
+| `ChunkManager` | 청크 로드/언로드, 가까운 청크부터, 프레임당 N청크 | 단일 책임 | 🔨 진행 중 |
+| `ChunkStats` | 측정값(활성 청크 수, 생성 수, 청크당 ms) | 단일 책임 | 🔨 진행 중 |
+| `MapStatsOverlay` | 측정값 화면 표시 (읽기만 함) | 단일 책임 | 🔨 진행 중 |
+| 타일 아트 | 16×16 타일 4종, 이음새 없이 반복 ([원본과 변환](Art/README.md)) | | 🔨 진행 중 |
+| Grid / Tilemap | 맵 표시. Tilemap 1개에 청크 단위로 채움 | | 📋 계획 (통합 단계) |
 
 범례: ✅ 완료, 🔨 진행 중, 📋 계획
 
@@ -49,7 +60,9 @@
 | 입력은 `IMoveInput`으로 추상화 | 키보드 없는 헤드리스 실험에서 자동 입력으로 교체 가능 |
 | 바라보는 방향은 `PlayerMovement`만 계산, 스프라이트는 이벤트로 받음 | 진실 단일성, 단일 책임 |
 | 청크 16×16 타일, 로드 반경 r=2 (항상 25청크) | 맵이 무한해도 메모리는 일정 |
-| 맵 설정값(청크 크기, 반경, 시드)은 한 곳에만 둔다 | 진실 단일성 (위치는 무한 맵 구현 때 결정) |
+| 맵 설정값은 `MapSettings` 에셋 한 곳에만 둔다. 언로드 반경도 저장하지 않고 `로드 반경 + 1`로 계산 | 진실 단일성 |
+| 타일 생성은 `ITileGenerator` 뒤에 두고, 구체 생성기를 고르는 곳은 `ChunkManager` 한 곳 | 알고리즘 비교 실험 시 기존 코드 수정 없이 추가 |
+| 측정(`ChunkStats`)과 표시(`MapStatsOverlay`)를 스트리밍과 분리 | 단일 책임, 연구용 측정 |
 | 타일 좌표 → 청크 좌표는 `Mathf.FloorToInt` | 정수 나눗셈은 음수 좌표에서 틀림 |
 | 맵 내용 = `f(seed, x, y)` 만 | 결정론: 지웠다 다시 만들어도 같은 맵 |
 | Tilemap 1개 + `SetTilesBlock` | 가장 단순하고 충분히 빠름 (조사 문서 비교표 A안) |
