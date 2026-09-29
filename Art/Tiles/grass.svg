@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" shape-rendering="crispEdges">
+  <!-- 바탕: 한 색으로 끝까지 채움 (테두리가 없어야 타일을 이어 붙여도 격자선이 보이지 않음) -->
+  <rect x="0" y="0" width="16" height="16" fill="#6B9651"/>
+  <!-- 풀잎 2포기: 어두운 V자, 가장자리에 닿지 않게 엇갈려 둠 -->
+  <rect x="3" y="4" width="1" height="1" fill="#57803F"/>
+  <rect x="5" y="4" width="1" height="1" fill="#57803F"/>
+  <rect x="4" y="5" width="1" height="1" fill="#57803F"/>
+  <rect x="10" y="10" width="1" height="1" fill="#57803F"/>
+  <rect x="12" y="10" width="1" height="1" fill="#57803F"/>
+  <rect x="11" y="11" width="1" height="1" fill="#57803F"/>
+</svg>
