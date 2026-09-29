@@ -24,6 +24,12 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    // 입력을 실행 중에 바꿔 끼운다. 예: 헤드리스 실험에서 AutoMoveInput으로 교체 (Strategy 패턴: 전략 교체)
+    public void SetInput(IMoveInput newInput)
+    {
+        input = newInput;
+    }
+
     void Update()
     {
         Vector2 dir = input.GetDirection();
